@@ -1,11 +1,130 @@
 {% extends 'customer/main.html' %}
+{% load static %}
 
 {% block content %}
 
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">Book</h1>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Books</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Book</li>
+        </ol>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <!-- Repeat the card HTML for each book -->
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Is it Bad or Good Habits</h5>
+                        <p class="card-text">Author: Haikal</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowModal">Borrow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Is it Bad or Good Habits</h5>
+                        <p class="card-text">Author: Haikal</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowModal">Borrow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Is it Bad or Good Habits</h5>
+                        <p class="card-text">Author: Haikal</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowModal">Borrow</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Is it Bad or Good Habits</h5>
+                        <p class="card-text">Author: Haikal</p>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#borrowModal">Borrow</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Borrowing Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-2">
+              <label for="name" class="col-form-label">Name</label>
+              <input type="text" class="form-control" id="name">
+            </div>
+            <div class="mb-2">
+              <label for="email" class="col-form-label">Email</label>
+              <input type="text" class="form-control" id="email">
+            </div>
+            <div class="mb-2">
+                <label for="nik" class="col-form-label">NIK</label>
+                <input type="number" class="form-control" id="nik">
+              </div>
+              <div class="mb-2">
+                <label for="address" class="col-form-label">Address</label>
+                <textarea class="form-control" id="address"></textarea>
+              </div>
+              <div class="mb-2">
+                <label for="borrowDuration" class="col-form-label">Borrow Duration</label>
+                <select class="form-select" id="borrowDuration">
+                    <option value="1">1 Day</option>
+                    <option value="7">1 Week</option>
+                    <option value="30">1 Month</option>
+                </select>
+            </div>
+              <div class="mb-2">
+                <label for="signature" class="col-form-label">Signature</label>
+                <canvas id="signatureCanvas" class="form-control border"></canvas>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- JavaScript to initialize the signature pad -->
+    <script>
+        var signaturePad;
+
+        $('#borrowModal').on('shown.bs.modal', function () {
+            signaturePad = new SignaturePad(document.getElementById('signatureCanvas'), {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                penColor: 'black'
+            });
+        });
+
+        window.saveSignature = function () {
+            // You can save the signature as an image or in any other format here
+            var signatureImage = signaturePad.toDataURL();
+            console.log('Signature Image:', signatureImage);
+
+            // Optionally, clear the signature pad
+            signaturePad.clear();
+
+            // Close the modal
+            $('#borrowModal').modal('hide');
+        };
+    </script>
 
 {% endblock %}
