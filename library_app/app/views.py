@@ -11,3 +11,11 @@ def formBorrowBook(request):
 
 def customerHistory(request):
     return render(request, "customer/history.html")
+
+
+# admin
+def adminHome(request):
+    return render(request, "library_admin/home.html")
+
+def borrowHistory(request):
+    return render(request, "library_admin/history.html")

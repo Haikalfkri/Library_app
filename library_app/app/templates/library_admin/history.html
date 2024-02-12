@@ -1,0 +1,52 @@
+{% extends 'library_admin/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="row justify-content-end mt-5">
+        <div class="col-md-3">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="mt-5">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Book</th>
+                <th scope="col">Borrow Date</th>
+                <th scope="col">Return Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Haikal</td>
+                <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
+                <td>Is it good or bad habits</td>
+                <td>12 February 2024</td>
+                <td>12 March 2024</td>
+              </tr>
+              <tr>
+                <td>Haikal</td>
+                <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
+                <td>Is it good or bad habits</td>
+                <td>12 February 2024</td>
+                <td>12 March 2024</td>
+              </tr>
+              <tr>
+                <td>Haikal</td>
+                <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
+                <td>Is it good or bad habits</td>
+                <td>12 February 2024</td>
+                <td>12 March 2024</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+{% endblock %}
