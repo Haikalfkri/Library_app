@@ -1,0 +1,35 @@
+{% extends 'library_admin/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="mt-5">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <th class="scope">Username</th>
+                    <th class="scope">First Name</th>
+                    <th class="scope">Last Name</th>
+                    <th class="scope">Email</th>
+                    <th class="scope">Date Joined</th>
+                    <th class="scope">Action</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Haikal12</td>
+                        <td>Haikal</td>
+                        <td>Fikri</td>
+                        <td>Haikal12@gmail.com</td>
+                        <td>12 February 2024</td>
+                        <td>
+                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
