@@ -1,9 +1,14 @@
 .container {
-    font-family: 'Protest Riot', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 15px; 
 }
 
 #home-navbar {
-    font-family: 'Protest Riot', sans-serif;
-    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#home-navbar.navbar-scrolled {
+    background-color: #333; /* Change this to your desired color on scroll */
 }
