@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
+from app.decorators import unauthenticated_user
 
 # Create your views here.
 
@@ -22,6 +22,7 @@ def redirect_based_on_role_and_group(request):
         return redirect('login')
 
 
+@unauthenticated_user
 def UserLogin(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -38,6 +39,7 @@ def UserLogin(request):
     return render(request, "authentication/login.html")
 
 
+@unauthenticated_user
 def UserRegister(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
