@@ -5,29 +5,36 @@
 {% block content %}
 
     <div class="mt-5">
-        <form>
+        <form method="POST">
+            {% csrf_token %}
+            
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username">
+                {{ form.username }}
             </div>
             <div class="mb-3">
                 <label for="first_name" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="first_name" placeholder="first name">
+                {{ form.first_name }}
             </div>
             <div class="mb-3">
                 <label for="last_name" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="last_name" placeholder="last name">
+                {{ form.last_name }}
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="email">
+                {{ form.email }}
             </div>
             <div class="mb-3">
-                <label for="id" class="form-label">Role</label>
-                <select class="form-select" id="role" aria-label="Default select example">
-                    <option selected>Select a role</option>
-                    <option value="1">Admin</option>
-                </select>
+                <label for="role">Role</label>
+                {{ form.role }}
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                {{ form.password1 }}
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm Password</label>
+                {{ form.password2 }}
             </div>
             <div class="row">
                 <div class="col-md-6 offset-md-6">

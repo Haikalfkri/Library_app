@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
+# to check the role and group 
 @login_required(login_url='login')
 def redirect_based_on_role_and_group(request):
     user = request.user
@@ -54,3 +56,9 @@ def UserRegister(request):
         form = UserRegistrationForm()
     
     return render(request, "authentication/register.html", {'form': form})
+
+
+def UserLogout(request):
+    logout(request)
+    messages.success(request, "Logout Succesfully")
+    return redirect('login')
