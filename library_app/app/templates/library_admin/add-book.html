@@ -5,26 +5,28 @@
 {% block content %}
 
     <div class="mt-5">
-        <form>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" placeholder="title">
+                {{ form.title }}
             </div>
             <div class="mb-3">
                 <label for="author" class="form-label">Author</label>
-                <input type="text" class="form-control" id="author" placeholder="author">
+                {{ form.author }}
             </div>
             <div class="mb-3">
                 <label for="published_by" class="form-label">Published By</label>
-                <input type="text" class="form-control" id="published_by" placeholder="published_by">
+                {{ form.published_by }}
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity</label>
-                <input type="number" class="form-control" id="quantity" placeholder="quantity">
+                {{ form.quantity }}
             </div>
             <div class="mb-3">
                 <label for="book-image" class="form-label">Book Image</label>
-                <input type="file" class="form-control" id="book-image" placeholder="book image">
+                {{ form.image }}
             </div>
             <div class="row">
                 <div class="col-md-6 offset-md-6">

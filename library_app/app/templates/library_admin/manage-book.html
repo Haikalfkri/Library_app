@@ -7,7 +7,7 @@
     <div class="row justify-content-end mt-5">
         <div class="col-md-3">
             <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                 <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
             </form>
         </div>
@@ -16,48 +16,28 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                    <th scope="col">Title</th>
+                    <th scope="col" style="width: 300px;">Title</th>
                     <th scope="col">Author</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Published By</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Image</th>
                     <th scope="col">Action</th>
                 </thead>
+                {% for book in books %}
                 <tbody>
                     <tr>
-                        <td>Is It Good or Bad Habits</td>
-                        <td>Sabrina Ara</td>
-                        <td>Haikal Fikri</td>
-                        <td>25</td>
-                        <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book-img" style="width: 70px;"></td>
-                        <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Is It Good or Bad Habits</td>
-                        <td>Sabrina Ara</td>
-                        <td>Haikal Fikri</td>
-                        <td>25</td>
-                        <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book-img" style="width: 70px;"></td>
-                        <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Is It Good or Bad Habits</td>
-                        <td>Sabrina Ara</td>
-                        <td>Haikal Fikri</td>
-                        <td>25</td>
-                        <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book-img" style="width: 70px;"></td>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td><img src="{{ book.imageUrl }}" alt="{{ book.title }}" style="width: 80px;"></td>
+                        <td>{{ book.published_by }}</td>
+                        <td>{{ book.quantity }}</td>
                         <td>
                             <a href="" class="btn btn-primary">Edit</a>
                             <a href="" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
+                {% endfor %}
             </table>
         </div>    
     </div>

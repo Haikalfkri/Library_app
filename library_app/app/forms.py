@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from app.models import CustomUser
+from app.models import CustomUser, BookModel
 
 
 class AdminRegisterForm(UserCreationForm):
@@ -38,4 +38,33 @@ class AdminRegisterForm(UserCreationForm):
                 'class': 'form-control',
                 'placeholder': 'Email',
             })
+        }
+        
+        
+
+class AddBookForm(forms.ModelForm):
+    class Meta:
+        model = BookModel
+        fields = ('title', 'author', 'published_by', 'quantity', 'image')
+        
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Title',
+            }),
+            'author': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Author',
+            }),
+            'published_by': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Published By',
+            }),
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'quantity',
+            }),
+            'image': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
         }
