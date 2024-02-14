@@ -40,7 +40,15 @@ class AdminRegisterForm(UserCreationForm):
             })
         }
         
+    def __init__(self, *args, **kwargs):
+        exclude_fields = kwargs.pop('exclude', [])
+        super(AdminRegisterForm, self).__init__(*args, **kwargs)
         
+        # Exclude specified fields from validation
+        for field_name in exclude_fields:
+            self.fields.pop(field_name, None)
+    
+    
 class AddBookForm(forms.ModelForm):
     class Meta:
         model = BookModel

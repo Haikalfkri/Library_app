@@ -165,7 +165,7 @@ def editUser(request, pk):
     user = CustomUser.objects.get(pk=pk)
     
     if request.method == "POST":
-        form = AdminRegisterForm(request.POST, instance=user)
+        form = AdminRegisterForm(request.POST, instance=user, exclude=['role'])
         
         if form.is_valid():
             form.save()

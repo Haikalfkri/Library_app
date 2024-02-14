@@ -17,20 +17,22 @@
                     <th class="scope">Action</th>
                 </thead>
                 {% for user in users %}
-                <tbody>
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.first_name }}</td>
-                        <td>{{ user.last_name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.date_joined }}</td>
-                        <td>
-                            <a href="{% url 'update-user' user.pk %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
+                    {% if user.is_superuser == False %}
+                        <tbody>
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.role }}</td>
+                                <td>{{ user.date_joined }}</td>
+                                <td>
+                                    <a href="{% url 'update-user' user.pk %}" class="btn btn-primary">Edit</a>
+                                    <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>
