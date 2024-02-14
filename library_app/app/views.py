@@ -107,6 +107,8 @@ def editBook(request, pk):
             form.save()
             messages.success(request, "Update Succesfull")
             return redirect("admin-home")
+        else:
+            messages.error(request, "Failed to Update Data")
     else:
         form = AddBookForm(instance=book)
         
@@ -162,7 +164,10 @@ def editUser(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Success Updating User")
-            return redirect("list-uf-user")
+            return redirect("list-of-user")
+        else:
+            messages.error(request, "Failed to Update Data")
+            # print(form.errors)
     else:
         form = AdminRegisterForm(instance=user)
     
