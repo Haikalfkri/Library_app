@@ -13,5 +13,7 @@ urlpatterns = [
     path("admin-history/", views.borrowHistory, name="admin-history"),
     path("list-of-user/", views.listOfUser, name="list-of-user"),
     path("add-book/", views.addBook, name="add-book"),
+    path("delete-book/<int:pk>/", views.deleteBook, name="delete-book"),
+    path("update-book/<int:pk>/", views.editBook, name="update-book"),
     path("add-admin/", views.addAdmin, name="add-admin"),
 ]

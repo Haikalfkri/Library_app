@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from django.db.models import Q
 
 from app.forms import AdminRegisterForm, AddBookForm
-from app.models import BookModel
+from app.models import BookModel, CustomUser
 
 # Create your views here.
 
@@ -37,12 +37,13 @@ def borrowingForm(request):
 
 
 
+
 # admin
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
 def adminHome(request):
-    book_list = BookModel.objects.all()
+    book_list = BookModel.objects.all().order_by('id')
     
     # search functionality
     book_search = request.GET.get('search')
@@ -54,20 +55,6 @@ def adminHome(request):
     }
     
     return render(request, "library_admin/manage-book.html", context)
-
-
-@login_required(login_url='login')
-@admin_only
-@allowed_users(allowed_users=['admin'])
-def borrowHistory(request):
-    return render(request, "library_admin/history.html")
-
-
-@login_required(login_url='login')
-@admin_only
-@allowed_users(allowed_users=['admin'])
-def listOfUser(request):
-    return render(request, "library_admin/list-of-user.html")
 
 
 @login_required(login_url='login')
@@ -88,6 +75,50 @@ def addBook(request):
         form = AddBookForm()
     
     return render(request, "library_admin/add-book.html", {'form': form})
+
+
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def deleteBook(request, pk):
+    book = BookModel.objects.get(pk=pk)
+    book.delete()
+    messages.success(request, "Book Succesfully Deleted")
+    return redirect('admin-home')
+
+
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def editBook(request, pk):
+    book = BookModel.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = AddBookForm(request.POST, request.FILES, instance=book)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Update Succesfull")
+            return redirect("admin-home")
+    else:
+        form = AddBookForm(instance=book)
+        
+    return render(request, "library_admin/edit-book.html", {'form': form})
+
+
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def borrowHistory(request):
+    return render(request, "library_admin/history.html")
+
+
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def listOfUser(request):
+    return render(request, "library_admin/list-of-user.html")
+
 
 
 @login_required(login_url='login')

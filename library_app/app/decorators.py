@@ -44,6 +44,6 @@ def admin_only(view_func):
             return redirect('customer-home')
         
         if group == 'admin':
-            return view_func(request, *args, **args)
+            return view_func(request, *args, **kwargs)
         
     return wrapper_func

@@ -1,0 +1,39 @@
+{% extends 'library_admin/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="mt-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                {{ form.author }}
+            </div>
+            <div class="mb-3">
+                <label for="published_by" class="form-label">Published By</label>
+                {{ form.published_by }}
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                {{ form.quantity }}
+            </div>
+            <div class="mb-3">
+                <label for="book-image" class="form-label">Book Image</label>
+                {{ form.image }}
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-md-6">
+                    <button type="submit" class="btn btn-primary mt-4 mb-5 float-end">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

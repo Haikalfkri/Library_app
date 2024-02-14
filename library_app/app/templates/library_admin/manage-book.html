@@ -32,8 +32,8 @@
                         <td>{{ book.published_by }}</td>
                         <td>{{ book.quantity }}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'update-book' book.pk %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete-book' book.pk %}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
