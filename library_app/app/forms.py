@@ -41,7 +41,6 @@ class AdminRegisterForm(UserCreationForm):
         }
         
         
-
 class AddBookForm(forms.ModelForm):
     class Meta:
         model = BookModel

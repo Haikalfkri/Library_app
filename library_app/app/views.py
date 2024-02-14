@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from app.decorators import allowed_users
+from app.decorators import allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.db.models import Q
 
@@ -39,6 +39,7 @@ def borrowingForm(request):
 
 # admin
 @login_required(login_url='login')
+@admin_only
 @allowed_users(allowed_users=['admin'])
 def adminHome(request):
     book_list = BookModel.objects.all()
@@ -56,18 +57,21 @@ def adminHome(request):
 
 
 @login_required(login_url='login')
+@admin_only
 @allowed_users(allowed_users=['admin'])
 def borrowHistory(request):
     return render(request, "library_admin/history.html")
 
 
 @login_required(login_url='login')
+@admin_only
 @allowed_users(allowed_users=['admin'])
 def listOfUser(request):
     return render(request, "library_admin/list-of-user.html")
 
 
 @login_required(login_url='login')
+@admin_only
 @allowed_users(allowed_users=['admin'])
 def addBook(request):
     if request.method == "POST":
@@ -87,6 +91,7 @@ def addBook(request):
 
 
 @login_required(login_url='login')
+@admin_only
 @allowed_users(allowed_users=['admin'])
 def addAdmin(request):
     if request.method == "POST":
