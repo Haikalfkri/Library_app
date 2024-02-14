@@ -12,22 +12,26 @@
                     <th class="scope">First Name</th>
                     <th class="scope">Last Name</th>
                     <th class="scope">Email</th>
+                    <th class="scope">Role</th>
                     <th class="scope">Date Joined</th>
                     <th class="scope">Action</th>
                 </thead>
+                {% for user in users %}
                 <tbody>
                     <tr>
-                        <td>Haikal12</td>
-                        <td>Haikal</td>
-                        <td>Fikri</td>
-                        <td>Haikal12@gmail.com</td>
-                        <td>12 February 2024</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.date_joined }}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'update-user' user.pk %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 </tbody>
+                {% endfor %}
             </table>
         </div>
     </div>

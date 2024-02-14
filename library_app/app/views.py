@@ -39,6 +39,7 @@ def borrowingForm(request):
 
 
 # admin
+# function for showing list of book
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -57,6 +58,8 @@ def adminHome(request):
     return render(request, "library_admin/manage-book.html", context)
 
 
+
+# function for adding book to the database
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -77,6 +80,8 @@ def addBook(request):
     return render(request, "library_admin/add-book.html", {'form': form})
 
 
+
+# function for delete book from database
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -87,6 +92,8 @@ def deleteBook(request, pk):
     return redirect('admin-home')
 
 
+
+# function for update or edit book data
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -106,6 +113,8 @@ def editBook(request, pk):
     return render(request, "library_admin/edit-book.html", {'form': form})
 
 
+
+# for showing history who borrowing the book
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -113,14 +122,55 @@ def borrowHistory(request):
     return render(request, "library_admin/history.html")
 
 
+
+# for showing list of user
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
 def listOfUser(request):
-    return render(request, "library_admin/list-of-user.html")
+    users = CustomUser.objects.all().order_by('id')
+    
+    context = {
+        'users': users
+    }
+    
+    return render(request, "library_admin/list-of-user.html", context)
+
+
+# function for delete the user 
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def deleteUser(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    user.delete()
+    messages.success(request, "User Successfully Deleted")
+    return redirect('list-of-user')
 
 
 
+# function for editing the data of the user
+@login_required(login_url='login')
+@admin_only
+@allowed_users(allowed_users=['admin'])
+def editUser(request, pk):
+    user = CustomUser.objects.get(pk=pk)
+    
+    if request.method == "POST":
+        form = AdminRegisterForm(request.POST, instance=user)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Success Updating User")
+            return redirect("list-uf-user")
+    else:
+        form = AdminRegisterForm(instance=user)
+    
+    return render(request, "library_admin/edit-user.html", {'form': form})
+
+
+
+# function for adding the user
 @login_required(login_url='login')
 @admin_only
 @allowed_users(allowed_users=['admin'])
@@ -135,7 +185,7 @@ def addAdmin(request):
             user.groups.add(group)
             
             messages.success(request, "Register For Admin Succesfully")
-            return redirect('add-admin')
+            return redirect('list-of-user')
         else:
             messages.error(request, "Invalid Register")
     else:
