@@ -15,7 +15,13 @@ from app.models import BookModel, CustomUser
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
 def customerHome(request):
-    return render(request, "customer/home.html")
+    books = BookModel.objects.all()
+    
+    context = {
+        'books': books
+    }
+    
+    return render(request, "customer/home.html", context)
 
 
 @login_required(login_url='login')

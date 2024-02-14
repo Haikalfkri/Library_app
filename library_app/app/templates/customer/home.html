@@ -13,61 +13,20 @@
         </div>
     </div>
     <div class="row mt-5 mb-5">
-        <div class="col-sm-2">
+        {% for book in books %}
+        <div class="col-sm-3">
             <div class="card">
-                <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="book-image">
+                <img src="{{ book.imageUrl }}" class="card-img-top" alt="book-image">
                 <div class="card-body">
-                    <h5 class="card-title">Is It Bad or Good Habits</h5>
-                    <p class="card-text">Author: Sabrina Ara</p>
-                    <p class="card-text">Quantity: 10</p>
+                    <h5 class="card-title" style="font-size: 15px; font-weight: bold;">{{ book.title }}</h5>
+                    <p class="card-text" style="font-size: 14px;">Author: {{ book.author }}</p>
+                    <p class="card-text" style="font-size: 14px;">Published By: {{ book.published_by }}</p>
+                    <p class="card-text" style="font-size: 14px;">Quantity: {{ book.quantity }}</p>
                     <a href="{% url 'borrowing-form' %}" class="btn btn-primary">Borrow</a>
                 </div>
             </div>
         </div>
-        <div class="col-sm-2">
-            <div class="card">
-                <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="book-image">
-                <div class="card-body">
-                    <h5 class="card-title">Is It Bad or Good Habits</h5>
-                    <p class="card-text">Author: Sabrina Ara</p>
-                    <p class="card-text">Quantity: 10</p>
-                    <a href="#" class="btn btn-primary">Borrow</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="card">
-                <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="book-image">
-                <div class="card-body">
-                    <h5 class="card-title">Is It Bad or Good Habits</h5>
-                    <p class="card-text">Author: Sabrina Ara</p>
-                    <p class="card-text">Quantity: 10</p>
-                    <a href="#" class="btn btn-primary">Borrow</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="card">
-                <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="book-image">
-                <div class="card-body">
-                    <h5 class="card-title">Is It Bad or Good Habits</h5>
-                    <p class="card-text">Author: Sabrina Ara</p>
-                    <p class="card-text">Quantity: 10</p>
-                    <a href="#" class="btn btn-primary">Borrow</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="card">
-                <img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" class="card-img-top" alt="book-image">
-                <div class="card-body">
-                    <h5 class="card-title">Is It Bad or Good Habits</h5>
-                    <p class="card-text">Author: Sabrina Ara</p>
-                    <p class="card-text">Quantity: 10</p>
-                    <a href="#" class="btn btn-primary">Borrow</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     
 {% endblock %}
