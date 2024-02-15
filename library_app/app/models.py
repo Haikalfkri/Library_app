@@ -40,10 +40,18 @@ class BorrowBookModel(models.Model):
     adress = models.TextField()
     date_borrow = models.DateTimeField()
     date_return = models.DateTimeField()
-    user_image = models.ImageField(upload_to="user_images/")
+    user_image = models.ImageField(upload_to="borrow_user_images/")
     
     def __str__(self):
         return self.user.username
+    
+    @property
+    def userImageUrl(self):
+        try:
+            url = self.user_image.url
+        except:
+            url = ''
+        return url
     
     def save(self, *args, **kwargs):
         # Decrease the quantity of the borrowed book

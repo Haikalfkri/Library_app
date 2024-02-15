@@ -81,14 +81,14 @@ class AddBookForm(forms.ModelForm):
 class BorrowBookForm(forms.ModelForm):
     class Meta:
         model = BorrowBookModel
-        fields = ('user', 'book', 'quantity', 'adress', 'date_borrow', 'date_return', 'user_image')
+        fields = ('quantity', 'adress', 'date_borrow', 'date_return', 'user_image')
         
         
         widgets = {
             'quantity': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'value': '1',
-                'disabled': 'disabled'
+                'value': 1,
+                'readonly': 'readonly'
             }),
             'adress': forms.Textarea(attrs={
                 'class': 'form-control',
@@ -113,3 +113,12 @@ class BorrowBookForm(forms.ModelForm):
             'date_borrow': ['%Y-%m-%dT%H:%M'],
             'date_return': ['%Y-%m-%dT%H:%M'],
         }
+        
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        book_id = cleaned_data.get('book_id')
+        
+        cleaned_data['quantity'] = 1
+            
+        return cleaned_data

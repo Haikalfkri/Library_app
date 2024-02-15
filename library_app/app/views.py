@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from django.db.models import Q
 
 from app.forms import AdminRegisterForm, AddBookForm, BorrowBookForm
-from app.models import BookModel, CustomUser
+from app.models import BookModel, CustomUser, BorrowBookModel
 
 # Create your views here.
 
@@ -27,7 +27,14 @@ def customerHome(request):
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
 def customerHistory(request):
-    return render(request, "customer/history.html")
+    current_user = request.user
+    customer_history = BorrowBookModel.objects.filter(user=current_user)
+
+    context = {
+        'histories': customer_history,
+    }
+    
+    return render(request, "customer/history.html", context)
 
 
 
@@ -35,11 +42,16 @@ def customerHistory(request):
 @allowed_users(allowed_users=['user'])
 def borrowingForm(request, id):
     book = BookModel.objects.get(id=id)
+    current_user = request.user
     
     if request.method == "POST":
-        form = BorrowBookForm(request.POST)
+        form = BorrowBookForm(request.POST, request.FILES)
         
         if form.is_valid():
+            # Set the current user and book id to the form
+            form.instance.user = current_user
+            form.instance.book = book
+            
             form.save()
             messages.success(request, "Borrow Book Successfully")
             return redirect('customer-home')
