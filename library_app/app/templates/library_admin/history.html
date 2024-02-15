@@ -18,39 +18,27 @@
           <thead>
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Photo</th>
+              <th scope="col">User Image</th>
               <th scope="col">Book Image</th>
-              <th scope="col">Book</th>
+              <th scope="col" style="width: 220px;">Book</th>
               <th scope="col">Borrow Date</th>
               <th scope="col">Return Date</th>
             </tr>
           </thead>
+          {% if borrow_histories %}
+          {% for userHistory in borrow_histories %}
           <tbody>
             <tr>
-              <td>Haikal</td>
-              <td>No img</td>
-              <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
-              <td>Is it good or bad habits</td>
-              <td>12 February 2024</td>
-              <td>12 March 2024</td>
-            </tr>
-            <tr>
-              <td>Haikal</td>
-              <td>No img</td>
-              <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
-              <td>Is it good or bad habits</td>
-              <td>12 February 2024</td>
-              <td>12 March 2024</td>
-            </tr>
-            <tr>
-              <td>Haikal</td>
-              <td>No img</td>
-              <td><img src="{% static 'assets/img/isitbadorgoodhabits.jpg' %}" alt="Book image" style="width: 70px;"></td>
-              <td>Is it good or bad habits</td>
-              <td>12 February 2024</td>
-              <td>12 March 2024</td>
+              <td>{{ userHistory.user.username }}</td>
+              <td><img src="{{ userHistory.userImageUrl }}" alt="Book image" style="width: 70px;"></td>
+              <td><img src="{{ userHistory.book.imageUrl }}" alt="Book image" style="width: 70px;"></td>
+              <td>{{ userHistory.book.title }}</td>
+              <td>{{ userHistory.date_borrow }}</td>
+              <td>{{ userHistory.date_return }}</td>
             </tr>
           </tbody>
+          {% endfor %}
+          {% endif %}
         </table>
       </div>
     </div>

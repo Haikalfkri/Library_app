@@ -148,7 +148,13 @@ def editBook(request, pk):
 @admin_only
 @allowed_users(allowed_users=['admin'])
 def borrowHistory(request):
-    return render(request, "library_admin/history.html")
+    borrow_history = BorrowBookModel.objects.all()
+    
+    context = {
+        'borrow_histories': borrow_history,
+    }
+    
+    return render(request, "library_admin/history.html", context)
 
 
 
