@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from app.models import CustomUser, BookModel
+from app.models import CustomUser, BookModel, BorrowBookModel
 
 
 class AdminRegisterForm(UserCreationForm):
@@ -74,4 +74,41 @@ class AddBookForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={
                 'class': 'form-control',
             }),
+        }
+        
+        
+
+class BorrowBookForm(forms.ModelForm):
+    class Meta:
+        model = BorrowBookModel
+        fields = ('quantity', 'adress', 'date_borrow', 'date_return', 'user_image')
+        
+        
+        widgets = {
+            'quantity': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'value': '1',
+            }),
+            'address': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': '3',
+            }),
+            'date_borrow': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'type': 'datetime-local',
+            }),
+            'date_return': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'type': 'datetime-local',
+            }),
+            'user_images': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+            }),
+        }
+        
+    
+        # Specify the input formats
+        input_formats = {
+            'date_borrow': ['%Y-%m-%dT%H:%M'],
+            'date_return': ['%Y-%m-%dT%H:%M'],
         }

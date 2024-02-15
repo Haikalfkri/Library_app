@@ -38,7 +38,7 @@ class BorrowBookModel(models.Model):
     book = models.ManyToManyField(BookModel)
     quantity = models.PositiveIntegerField(default=1)
     adress = models.TextField()
-    date_borrow = models.DateTimeField(auto_now_add=True)
+    date_borrow = models.DateTimeField()
     date_return = models.DateTimeField()
     user_image = models.ImageField(upload_to="user_images/")
     

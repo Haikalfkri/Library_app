@@ -6,7 +6,7 @@ from app.decorators import allowed_users, admin_only
 from django.contrib.auth.models import Group
 from django.db.models import Q
 
-from app.forms import AdminRegisterForm, AddBookForm
+from app.forms import AdminRegisterForm, AddBookForm, BorrowBookForm
 from app.models import BookModel, CustomUser
 
 # Create your views here.
@@ -34,7 +34,18 @@ def customerHistory(request):
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
 def borrowingForm(request):
-    return render(request, "customer/form-borrow.html")
+    if request.method == "POST":
+        form = BorrowBookForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Borrow Book Successfully")
+            return redirect('customer-home')
+        else:
+            messages.error(request, "Failed to Borrow")
+    else:
+        form = BorrowBookForm()
+    return render(request, "customer/form-borrow.html", {'form': form})
 
 
 
