@@ -81,17 +81,18 @@ class AddBookForm(forms.ModelForm):
 class BorrowBookForm(forms.ModelForm):
     class Meta:
         model = BorrowBookModel
-        fields = ('quantity', 'adress', 'date_borrow', 'date_return', 'user_image')
+        fields = ('user', 'book', 'quantity', 'adress', 'date_borrow', 'date_return', 'user_image')
         
         
         widgets = {
             'quantity': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'value': '1',
+                'disabled': 'disabled'
             }),
-            'address': forms.Textarea(attrs={
+            'adress': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': '3',
+                'rows': '4'
             }),
             'date_borrow': forms.DateTimeInput(attrs={
                 'class': 'form-control',
@@ -101,7 +102,7 @@ class BorrowBookForm(forms.ModelForm):
                 'class': 'form-control',
                 'type': 'datetime-local',
             }),
-            'user_images': forms.ClearableFileInput(attrs={
+            'user_image': forms.ClearableFileInput(attrs={
                 'class': 'form-control',
             }),
         }

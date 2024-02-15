@@ -22,7 +22,7 @@
                     <p class="card-text" style="font-size: 14px;">Author: {{ book.author }}</p>
                     <p class="card-text" style="font-size: 14px;">Published By: {{ book.published_by }}</p>
                     <p class="card-text" style="font-size: 14px;">Quantity: {{ book.quantity }}</p>
-                    <a href="{% url 'borrowing-form' %}" class="btn btn-primary">Borrow</a>
+                    <a href="{% url 'borrowing-form' book.id %}" class="btn btn-primary">Borrow</a>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ urlpatterns = [
     # urls for customer
     path("customer-home/", views.customerHome, name="customer-home"),
     path("customer-history/", views.customerHistory, name="customer-history"),
-    path("borrowing-form/", views.borrowingForm, name="borrowing-form"),
+    path("borrowing-form/<int:id>/", views.borrowingForm, name="borrowing-form"),
     
     # urls for library admin
     path("admin-home/", views.adminHome, name="admin-home"),

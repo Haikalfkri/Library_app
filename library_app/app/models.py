@@ -35,7 +35,7 @@ class BookModel(models.Model):
 
 class BorrowBookModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    book = models.ManyToManyField(BookModel)
+    book = models.ForeignKey(BookModel, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     adress = models.TextField()
     date_borrow = models.DateTimeField()
@@ -43,7 +43,7 @@ class BorrowBookModel(models.Model):
     user_image = models.ImageField(upload_to="user_images/")
     
     def __str__(self):
-        return self.title
+        return self.user.username
     
     def save(self, *args, **kwargs):
         # Decrease the quantity of the borrowed book
@@ -51,6 +51,7 @@ class BorrowBookModel(models.Model):
             self.book.quantity -= self.quantity
             self.book.save()
         else:
-            raise ValueError("Borrow quantity exceeds available quantity")
+            raise ValueError("Book not available")
         
-        super().save(*args, **kwargs)
+        super().save(*args, **kwargs)   
+        

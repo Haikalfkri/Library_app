@@ -15,7 +15,7 @@ from app.models import BookModel, CustomUser
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
 def customerHome(request):
-    books = BookModel.objects.all()
+    books = BookModel.objects.all().order_by('id')
     context = {
         'books': books
     }
@@ -33,7 +33,9 @@ def customerHistory(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
-def borrowingForm(request):
+def borrowingForm(request, id):
+    book = BookModel.objects.get(id=id)
+    
     if request.method == "POST":
         form = BorrowBookForm(request.POST)
         
@@ -43,8 +45,9 @@ def borrowingForm(request):
             return redirect('customer-home')
         else:
             messages.error(request, "Failed to Borrow")
+            print(form.errors)
     else:
-        form = BorrowBookForm()
+        form = BorrowBookForm(initial={'books': [book]})
     return render(request, "customer/form-borrow.html", {'form': form})
 
 
