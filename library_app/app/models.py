@@ -31,3 +31,26 @@ class BookModel(models.Model):
             url = ""
             
         return url
+    
+
+class BorrowBookModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    book = models.ManyToManyField(BookModel)
+    quantity = models.PositiveIntegerField(default=1)
+    adress = models.TextField()
+    date_borrow = models.DateTimeField(auto_now_add=True)
+    date_return = models.DateTimeField()
+    user_image = models.ImageField(upload_to="user_images/")
+    
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        # Decrease the quantity of the borrowed book
+        if self.quantity <= self.book.quantity:
+            self.book.quantity -= self.quantity
+            self.book.save()
+        else:
+            raise ValueError("Borrow quantity exceeds available quantity")
+        
+        super().save(*args, **kwargs)

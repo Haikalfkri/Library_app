@@ -16,7 +16,6 @@ from app.models import BookModel, CustomUser
 @allowed_users(allowed_users=['user'])
 def customerHome(request):
     books = BookModel.objects.all()
-    
     context = {
         'books': books
     }
@@ -24,16 +23,12 @@ def customerHome(request):
     return render(request, "customer/home.html", context)
 
 
-@login_required(login_url='login')
-@allowed_users(allowed_users=['user'])
-def formBorrowBook(request):
-    return render(request, "customer/form-borrow.html")
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_users=['user'])
 def customerHistory(request):
     return render(request, "customer/history.html")
+
 
 
 @login_required(login_url='login')
