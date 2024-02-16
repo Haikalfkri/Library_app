@@ -22,7 +22,17 @@
                     <p class="card-text" style="font-size: 14px;">Author: {{ book.author }}</p>
                     <p class="card-text" style="font-size: 14px;">Published By: {{ book.published_by }}</p>
                     <p class="card-text" style="font-size: 14px;">Quantity: {{ book.quantity }}</p>
-                    <a href="{% url 'borrowing-form' book.id %}" class="btn btn-primary">Borrow</a>
+                                        
+                    {% if book.id in borrowed_books_ids %}
+                        {% if book.id in not_returned_books_ids %}
+                            <button class="btn btn-primary" disabled>Borrowed (Return pending)</button>
+                        {% else %}
+                            <a href="{% url 'borrowing-form' book.id %}" class="btn btn-primary">Borrow</a>
+                        {% endif %}
+                    {% else %}
+                         <a href="{% url 'borrowing-form' book.id %}" class="btn btn-primary">Borrow</a>
+                    {% endif %}
+        
                 </div>
             </div>
         </div>

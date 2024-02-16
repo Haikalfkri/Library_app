@@ -9,6 +9,8 @@ from django.db.models import Q
 from app.forms import AdminRegisterForm, AddBookForm, BorrowBookForm
 from app.models import BookModel, CustomUser, BorrowBookModel
 
+from django.utils import timezone
+
 # Create your views here.
 
 # customer 
@@ -16,10 +18,24 @@ from app.models import BookModel, CustomUser, BorrowBookModel
 @allowed_users(allowed_users=['user'])
 def customerHome(request):
     books = BookModel.objects.all().order_by('id')
-    context = {
-        'books': books
-    }
     
+    # Get a set of book IDs that the user has currently borrowed
+    borrowed_books_ids = set(BorrowBookModel.objects.filter(
+        user=request.user
+    ).values_list('book_id', flat=True))
+
+    # Get a set of book IDs that the user has borrowed and not yet returned
+    not_returned_books_ids = set(BorrowBookModel.objects.filter(
+        user=request.user,
+        date_return__gt=timezone.now()
+    ).values_list('book_id', flat=True))
+
+    context = {
+        'books': books,
+        'borrowed_books_ids': borrowed_books_ids,
+        'not_returned_books_ids': not_returned_books_ids,
+    }
+
     return render(request, "customer/home.html", context)
 
 
