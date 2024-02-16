@@ -76,6 +76,7 @@ def adminHome(request):
     # search functionality
     book_search = request.GET.get('search')
     if book_search:
+        # For search by title and author
         book_list = book_list.filter(Q(title__icontains=book_search) | Q(author__icontains=book_search))
     
     context = {
@@ -192,6 +193,7 @@ def editUser(request, pk):
     user = CustomUser.objects.get(pk=pk)
     
     if request.method == "POST":
+        # Exclude role for exclude role from the forms and setup to from default role is user to role admin
         form = AdminRegisterForm(request.POST, instance=user, exclude=['role'])
         
         if form.is_valid():
