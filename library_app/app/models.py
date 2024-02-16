@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.utils import timezone
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -39,12 +39,11 @@ class BorrowBookModel(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     adress = models.TextField()
     date_borrow = models.DateTimeField()
-    date_return = models.DateTimeField()
+    date_return = models.DateTimeField(null=True, blank=True)
     user_image = models.ImageField(upload_to="borrow_user_images/")
     
     def __str__(self):
-        return self.user.username
-    
+        return f"{self.user.username} - {self.book.title}"
     @property
     def userImageUrl(self):
         try:
@@ -54,12 +53,17 @@ class BorrowBookModel(models.Model):
         return url
     
     def save(self, *args, **kwargs):
-        # Decrease the quantity of the borrowed book
-        if self.quantity <= self.book.quantity:
-            self.book.quantity -= self.quantity
+        
+        if self.date_return is None:
+            # Decrease the quantity of the borrowed book
+            if self.quantity <= self.book.quantity:
+                self.book.quantity -= self.quantity
+                self.book.save()
+            else:
+                raise ValueError("Book not available")
+        elif self.data_return <= timezone.now():
+            self.book.quantity += self.quantity
             self.book.save()
-        else:
-            raise ValueError("Book not available")
         
         super().save(*args, **kwargs)   
         

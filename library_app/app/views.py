@@ -18,7 +18,7 @@ from django.utils import timezone
 @allowed_users(allowed_users=['user'])
 def customerHome(request):
     books = BookModel.objects.all().order_by('id')
-    
+
     # Get a set of book IDs that the user has currently borrowed
     borrowed_books_ids = set(BorrowBookModel.objects.filter(
         user=request.user
