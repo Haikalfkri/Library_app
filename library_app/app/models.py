@@ -61,7 +61,7 @@ class BorrowBookModel(models.Model):
                 self.book.save()
             else:
                 raise ValueError("Book not available")
-        elif self.data_return <= timezone.now():
+        elif self.date_return <= timezone.now():
             self.book.quantity += self.quantity
             self.book.save()
         
